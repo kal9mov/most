@@ -31,9 +31,8 @@ jobs:
     - name: Install Backend Dependencies
       run: cd backend && npm ci
 
-    - name: Install Bot Dependencies
-      run: cd bot && npm ci # Добавим установку для бота, когда он появится
-      # Если папки bot еще нет, этот шаг упадет. Можно закомментировать пока.
+    # - name: Install Bot Dependencies # Комментируем этот шаг
+    #   run: cd bot && npm ci           # Пока папка bot не инициализирована
 
     - name: Build Frontend
       run: cd frontend && npm run build
