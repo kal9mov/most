@@ -2,6 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation'; // Хук для получения [id] из URL
+import VolunteerPanelNav from '@/components/layout/VolunteerPanelNav'; // Путь через алиас
 
 export default function PanelRequestDetailPage() {
   const params = useParams();
@@ -24,9 +25,9 @@ export default function PanelRequestDetailPage() {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      {/* TODO: Добавить навигацию панели волонтера */}
-      <div className="bg-white p-6 rounded-lg shadow">
+    <div className="container mx-auto p-4 flex flex-col md:flex-row gap-6 text-gray-900">
+      <VolunteerPanelNav />
+      <div className="flex-grow bg-white p-6 rounded-lg shadow">
         <h1 className="text-2xl font-bold mb-6">Детали Запроса #{requestDetails.id}</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -65,7 +66,6 @@ export default function PanelRequestDetailPage() {
             Назад к списку
           </Link>
         </div>
-
       </div>
     </div>
   );

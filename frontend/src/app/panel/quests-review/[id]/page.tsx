@@ -2,6 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import VolunteerPanelNav from '@/components/layout/VolunteerPanelNav';
 
 export default function PanelQuestReviewDetailPage() {
   const params = useParams();
@@ -18,9 +19,9 @@ export default function PanelQuestReviewDetailPage() {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      {/* TODO: Добавить навигацию панели волонтера */}
-      <div className="bg-white p-6 rounded-lg shadow">
+    <div className="container mx-auto p-4 flex flex-col md:flex-row gap-6 text-gray-900">
+      <VolunteerPanelNav />
+      <div className="flex-grow bg-white p-6 rounded-lg shadow">
         <h1 className="text-2xl font-bold mb-1">Проверка Квеста:</h1>
         <h2 className="text-xl text-gray-700 mb-6">{questDetails.name}</h2>
 

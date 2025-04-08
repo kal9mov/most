@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import Modal from '../../components/ui/Modal'; // Обновленный относительный путь
-import HelpCard from '../../components/HelpCard'; // Обновленный относительный путь
+import Modal from '../../components/ui/Modal'; // Возвращаем относительный путь
+import HelpCard from '../../components/HelpCard'; // Возвращаем относительный путь
 
 // TODO: Заменить заглушки на реальные SVG иконки
 const icons = {
@@ -102,14 +102,13 @@ export default function HelpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFFBF5] p-8 flex flex-col items-center font-sans">
-       {/* Возможно, здесь будет общая навигация сайта, которая рендерится в layout.tsx */}
+    <div className="flex flex-col items-center">
       <header className="text-center mb-12">
         <h1 className="text-4xl font-bold text-[#333] mb-2">Мы можем помочь Вам</h1>
         <p className="text-lg text-[#666]">Найдите то, что нужно</p>
       </header>
 
-      <main className="w-full max-w-4xl">
+      <div className="w-full max-w-4xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
           {helpCardsData.map((card) => (
              <HelpCard
@@ -131,7 +130,7 @@ export default function HelpPage() {
             Оставить свой запрос
           </button>
         </div>
-      </main>
+      </div>
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         {renderModalContent()}

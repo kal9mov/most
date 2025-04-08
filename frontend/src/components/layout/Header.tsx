@@ -12,6 +12,8 @@ const Header = () => {
         <div className="hidden md:flex space-x-6 items-center">
           <Link href="/" className="text-gray-600 hover:text-[#FF7A59] transition-colors font-medium">Главная</Link>
           <Link href="/help" className="text-gray-600 hover:text-[#FF7A59] transition-colors font-medium">Помощь</Link>
+          <Link href="/quests" className="text-gray-600 hover:text-[#FF7A59] transition-colors font-medium">Квесты</Link>
+          <Link href="/path" className="text-gray-600 hover:text-[#FF7A59] transition-colors font-medium">Путь</Link>
         </div>
 
         <div>

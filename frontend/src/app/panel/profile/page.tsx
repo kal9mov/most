@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import VolunteerPanelNav from '@/components/layout/VolunteerPanelNav';
 
 export default function PanelProfilePage() {
   // TODO: Получить данные профиля волонтера
@@ -11,9 +12,9 @@ export default function PanelProfilePage() {
   };
 
   return (
-    <div className="container mx-auto p-4">
-       {/* TODO: Добавить навигацию панели волонтера */}
-      <div className="bg-white p-6 rounded-lg shadow max-w-2xl mx-auto">
+    <div className="container mx-auto p-4 flex flex-col md:flex-row gap-6 text-gray-900">
+      <VolunteerPanelNav />
+      <div className="flex-grow bg-white p-6 rounded-lg shadow max-w-2xl">
         <h1 className="text-2xl font-bold mb-6">Мой Профиль</h1>
 
         <div className="space-y-4">
@@ -35,7 +36,6 @@ export default function PanelProfilePage() {
           </div>
         </div>
 
-        {/* TODO: Добавить кнопку редактирования и настройки уведомлений */}
         <div className="mt-6 border-t pt-4">
            <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">
              Редактировать
