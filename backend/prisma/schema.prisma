@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Добавляем Enum для ролей
+enum Role {
+  USER
+  VOLUNTEER
+}
+
+// Добавляем Enum для статусов проверки квеста
+enum SubmissionStatus {
+  SUBMITTED // Отправлено пользователем, ожидает проверки
+  APPROVED  // Проверено и одобрено волонтером
+  REJECTED  // Проверено и отклонено волонтером
+}
+
+// Модель пользователя
+model User {
+  id          String   @id @default(cuid())
+  telegramId  BigInt   @unique
+  firstName   String   @map("first_name")
+  lastName    String?  @map("last_name")
+  username    String?
+  photoUrl    String?  @map("photo_url")
+  totalPoints Int      @default(0) @map("total_points")
+  role        Role     @default(USER)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  helpRequests HelpRequest[]
+  submissions      QuestSubmission[] @relation("UserSubmissions")  // Отправки пользователя
+  reviews          QuestSubmission[] @relation("VolunteerReviews") // Проверки волонтера
+  completedQuests  UserCompletedQuest[] // Добавляем связь выполненных квестов
+
+  @@map("users")
+}
+
+// Enum для статусов запросов помощи
+enum HelpRequestStatus {
+  PENDING
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+// Модель запроса помощи
+model HelpRequest {
+  id        String            @id @default(cuid())
+  topic     String
+  contact   String
+  question  String
+  status    HelpRequestStatus @default(PENDING)
+  createdAt DateTime          @default(now()) @map("created_at")
+  updatedAt DateTime          @updatedAt @map("updated_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map("help_requests")
+}
+
+// Модель для отправок квестов на проверку
+model QuestSubmission {
+  id        String   @id @default(cuid())
+  status    SubmissionStatus @default(SUBMITTED)
+  submittedFileUrl String @map("submitted_file_url") // Путь к загруженному файлу
+  submittedAt DateTime @default(now()) @map("submitted_at")
+  reviewNotes String?  @map("review_notes") // Комментарий волонтера
+  reviewedAt  DateTime? @map("reviewed_at")  // Время проверки
+
+  userId    String @map("user_id") // Пользователь, отправивший файл
+  user      User   @relation("UserSubmissions", fields: [userId], references: [id])
+
+  questId   String @map("quest_id") // Квест, к которому относится отправка
+  quest     Quest  @relation(fields: [questId], references: [id])
+
+  reviewerId String? @map("reviewer_id") // Волонтер, проверивший отправку (опционально)
+  reviewer   User?   @relation("VolunteerReviews", fields: [reviewerId], references: [id]) // Связь с волонтером
+
+  @@map("quest_submissions")
+}
+
+// Модель для отслеживания выполненных пользователем квестов
+model UserCompletedQuest {
+  id           String   @id @default(cuid())
+  completedAt  DateTime @default(now()) @map("completed_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  questId String @map("quest_id")
+  quest   Quest  @relation(fields: [questId], references: [id])
+
+  // Уникальный индекс, чтобы пользователь не мог выполнить один квест дважды
+  @@unique([userId, questId])
+  @@map("user_completed_quests")
+}
+
+// Модель квеста
+model Quest {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  category     String
+  rewardPoints Int?     @map("reward_points")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  submissions  QuestSubmission[] // Все отправки по этому квесту
+  completions  UserCompletedQuest[] // Добавляем связь выполнений
+
+  @@map("quests")
+}
+
+// Модель этапа пути
+model PathStep {
+  id          String   @id @default(cuid())
+  stepNumber  Int      @unique @map("step_number")
+  title       String
+  description String
+  category    String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("path_steps")
+}
