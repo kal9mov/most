@@ -52,7 +52,7 @@ export default function PanelRequestDetailPage() {
           <h3 className="font-semibold mb-1">История Статусов:</h3>
           <ul className="list-disc list-inside text-sm text-gray-600">
             {requestDetails.history.map((item, index) => (
-              <li key={index}>Статус изменен на "{item.status}" - {item.date}. {item.comment && `Комментарий: ${item.comment}`}</li>
+              <li key={index}>Статус изменен на &quot;{item.status}&quot; - {item.date}. {item.comment && `Комментарий: ${item.comment}`}</li>
             ))}
           </ul>
         </div>

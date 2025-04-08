@@ -1,8 +1,26 @@
 import React from 'react';
 import Link from 'next/link';
 
-// Placeholder для карточки этапа
-const PathStepCard = ({ number, title, description, statusIcon, links }: any) => (
+// Определяем типы для пропсов
+interface StatusIcon {
+  icon: string;
+  bgColor: string;
+}
+
+interface PageLink {
+  label: string;
+  href: string;
+}
+
+interface PathStepCardProps {
+  number: number;
+  title: string;
+  description: string;
+  statusIcon: StatusIcon; // Используем тип StatusIcon
+  links: PageLink[]; // Используем массив типа PageLink
+}
+
+const PathStepCard: React.FC<PathStepCardProps> = ({ number, title, description, statusIcon, links }) => (
   <div className="bg-white p-6 rounded-xl shadow-md mb-4 relative">
     {/* TODO: Добавить линии связи между карточками */}
     <div className="flex items-start">
@@ -14,7 +32,7 @@ const PathStepCard = ({ number, title, description, statusIcon, links }: any) =>
         <h3 className="text-lg font-semibold mb-1">{number}. {title}</h3>
         <p className="text-sm text-gray-600 mb-3">{description}</p>
         <div className="flex space-x-4 text-sm">
-          {links.map((link: any) => (
+          {links.map((link) => (
             <Link key={link.href} href={link.href} className="text-teal-600 hover:underline">
               {link.label}
             </Link>

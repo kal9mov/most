@@ -4,8 +4,6 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-interface VolunteerPanelNavProps {}
-
 const navItems = [
   { href: '/panel', label: 'Сводка' },
   { href: '/panel/requests', label: 'Запросы Помощи' },
@@ -13,7 +11,7 @@ const navItems = [
   { href: '/panel/profile', label: 'Профиль' },
 ];
 
-const VolunteerPanelNav: React.FC<VolunteerPanelNavProps> = () => {
+const VolunteerPanelNav: React.FC = () => {
   const pathname = usePathname();
 
   return (
