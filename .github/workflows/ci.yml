@@ -1,0 +1,49 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ] # Запускать при пуше в main
+  pull_request:
+    branches: [ "main" ] # Запускать при создании PR в main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x] # Используем LTS версию Node.js
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4 # Действие для скачивания кода
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4 # Действие для установки Node.js
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm' # Включаем кеширование npm зависимостей
+        cache-dependency-path: '**/package-lock.json'
+
+    - name: Install Frontend Dependencies
+      run: cd frontend && npm ci # Используем npm ci для быстрой и чистой установки
+
+    - name: Install Backend Dependencies
+      run: cd backend && npm ci
+
+    - name: Install Bot Dependencies
+      run: cd bot && npm ci # Добавим установку для бота, когда он появится
+      # Если папки bot еще нет, этот шаг упадет. Можно закомментировать пока.
+
+    - name: Build Frontend
+      run: cd frontend && npm run build
+
+    - name: Build Backend
+      run: cd backend && npm run build
+
+    # Сюда можно добавить шаги для линтеров и тестов
+    # - name: Run Linter
+    #   run: npm run lint # Пример
+
+    # - name: Run Tests
+    #   run: npm run test # Пример 

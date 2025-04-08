@@ -1,103 +1,42 @@
-import Image from "next/image";
+// import Image from 'next/image'; // Оставим, если будем использовать для картинки
+// import Link from 'next/link';
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="bg-gray-100">
+      {/* Основной контент */}
+      <main className="container mx-auto mt-8 flex-grow p-4">
+        <div className="bg-white p-8 rounded-lg shadow-lg">
+          <div className="md:flex md:items-center">
+            {/* Текстовая часть */} 
+            <div className="md:w-1/2 md:pr-8 text-center md:text-left mb-6 md:mb-0">
+              <h1 className="text-4xl font-bold mb-4">Мост</h1>
+              <p className="text-lg text-gray-700 mb-4">
+                Единая платформа поддержки для участников СВО, их семей и жителей приграничных регионов.
+              </p>
+               <p className="text-lg text-gray-700 mb-6">
+                Мы объединяем опытных специалистов и управленцев, готовых помочь в решении ваших нужд.
+              </p>
+            </div>
+            {/* Изображение */}
+            <div className="md:w-1/2 h-64 bg-gray-300 rounded-md flex items-center justify-center">
+               {/* <Image src="/placeholder-image.png" alt="Абстрактные волны" width={500} height={256} className="rounded-md object-cover" /> */}
+               <span className="text-gray-500">[Изображение]</span> 
+            </div>
+          </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          {/* Нижний текстовый блок */} 
+          <div className="mt-8 pt-8 border-t border-gray-200">
+             <p className="text-base text-gray-600">
+              Платформа &quot;Мост&quot; – это современное цифровое решение, созданное для поддержки участников СВО, их семей и переселенцев из приграничных регионов.
+              Наша платформа объединяет тех, кто нуждается в помощи, с опытными волонтёрами из сообщества &quot;Лидеры России – Москва&quot;.
+              Через удобный интерфейс вы можете получить помощь в трёх ключевых направлениях: &quot;Информбюро&quot;, &quot;Дежурный по Москве&quot; и &quot;В СВОей сфере&quot;.
+              Достаточно авторизоваться через Telegram, создать запрос, и наши волонтёры оперативно откликнутся на вашу просьбу.
+              Платформа доступна как через веб-версию, так и через мобильное приложение, обеспечивая безопасность ваших данных и комфортное взаимодействие.
+            </p>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
