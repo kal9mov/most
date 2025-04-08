@@ -2,11 +2,9 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation'; // Для определения активной ссылки
+import { usePathname } from 'next/navigation';
 
-interface VolunteerPanelNavProps {
-  // Можно передавать activeSection явно, если usePathname не подходит
-}
+interface VolunteerPanelNavProps {}
 
 const navItems = [
   { href: '/panel', label: 'Сводка' },
@@ -24,7 +22,6 @@ const VolunteerPanelNav: React.FC<VolunteerPanelNavProps> = () => {
       <nav>
         <ul>
           {navItems.map((item) => {
-            // Простая проверка на активность (можно улучшить для вложенных роутов)
             const isActive = pathname === item.href;
             return (
               <li key={item.href} className="mb-2">

@@ -13,7 +13,6 @@ const HelpCard: React.FC<HelpCardProps> = ({ icon, title, description, onClick }
       className="bg-white p-6 rounded-xl shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-200 text-center flex flex-col items-center"
       onClick={onClick}
     >
-      {/* Место для иконки */}
       <div className="w-16 h-16 mb-4 flex items-center justify-center">
         {icon} 
       </div>

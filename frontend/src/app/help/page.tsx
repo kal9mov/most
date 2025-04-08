@@ -1,18 +1,16 @@
 "use client";
 
 import React, { useState } from 'react';
-import Modal from '../../components/ui/Modal'; // Возвращаем относительный путь
-import HelpCard from '../../components/HelpCard'; // Возвращаем относительный путь
+import Modal from '../../components/ui/Modal';
+import HelpCard from '../../components/HelpCard';
 
-// TODO: Заменить заглушки на реальные SVG иконки
 const icons = {
-  info: <span className="text-3xl">ℹ️</span>, // Пример заглушки
-  moscow: <span className="text-3xl">📍</span>, // Пример заглушки
-  duty: <span className="text-3xl">🕒</span>, // Пример заглушки
-  career: <span className="text-3xl">💼</span>, // Пример заглушки
+  info: <span className="text-3xl">ℹ️</span>,
+  moscow: <span className="text-3xl">📍</span>,
+  duty: <span className="text-3xl">🕒</span>,
+  career: <span className="text-3xl">💼</span>,
 };
 
-// Переименовываем компонент для ясности (не обязательно, но полезно)
 export default function HelpPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContentId, setModalContentId] = useState<string | null>(null);
@@ -39,24 +37,18 @@ export default function HelpPage() {
       case 'info':
         return (
           <div>
-            {/* Иконка и Заголовок */}
             <div className="flex items-center mb-4">
-              {/* TODO: Использовать реальную SVG иконку */}
               <div className="w-10 h-10 bg-[#63C1C0] rounded-full flex items-center justify-center mr-3">
                 <span className="text-white text-2xl font-bold">i</span>
               </div>
               <h2 className="text-xl font-semibold text-[#333]">Информбюро:<br/>Помощь с вопросами</h2>
             </div>
-
-            {/* Описание */}
             <p className="text-sm text-[#666] mb-6">
               Здесь вы можете задать вопрос по административным, 
               бытовым или юридическим вопросам в Москве. Наши 
               волонтеры помогут найти нужную информацию и 
               окажут поддержку.
             </p>
-
-            {/* Форма */}
             <form>
               <div className="mb-4">
                 <label htmlFor="contact" className="block text-sm font-medium text-[#333] mb-1">Контакты:</label>
@@ -77,8 +69,6 @@ export default function HelpPage() {
                   className="w-full p-2 border border-gray-300 rounded-lg bg-[#F8F8F8] focus:outline-none focus:ring-1 focus:ring-[#63C1C0] focus:border-[#63C1C0]"
                 />
               </div>
-              
-              {/* Кнопка отправки */}
               <button 
                 type="submit" 
                 className="w-full bg-[#63C1C0] text-white py-3 rounded-lg hover:bg-[#51A8A6] transition-colors font-semibold"
@@ -107,7 +97,6 @@ export default function HelpPage() {
         <h1 className="text-4xl font-bold text-[#333] mb-2">Мы можем помочь Вам</h1>
         <p className="text-lg text-[#666]">Найдите то, что нужно</p>
       </header>
-
       <div className="w-full max-w-4xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
           {helpCardsData.map((card) => (
@@ -120,7 +109,6 @@ export default function HelpPage() {
              />
           ))}
         </div>
-
         <div className="text-center">
           <p className="text-lg text-[#333] mb-4">Нет нужной помощи?</p>
           <button
@@ -131,12 +119,11 @@ export default function HelpPage() {
           </button>
         </div>
       </div>
-
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         {renderModalContent()}
          <button
           onClick={closeModal}
-          className="mt-4 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors block ml-auto" // Добавил block ml-auto для выравнивания вправо
+          className="mt-4 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors block ml-auto"
         >
           Закрыть
         </button>

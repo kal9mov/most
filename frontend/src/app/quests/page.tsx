@@ -1,4 +1,7 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 // // Placeholder для карточки квеста
 // const QuestCard = ({ title, description, status, onAction, actionLabel }: any) => (
@@ -14,21 +17,34 @@ import React from 'react';
 //   </div>
 // );
 
-// // Placeholder для фильтра
-// const FilterButton = ({ label, active }: any) => (
-//   <button className={`px-3 py-1 rounded-full text-sm transition-colors ${active ? 'bg-teal-100 text-teal-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
-//     {label}
-//   </button>
-// );
+// Восстанавливаем компонент FilterButton
+const FilterButton = ({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) => (
+  <button 
+    onClick={onClick}
+    className={`px-3 py-1 rounded-full text-sm transition-colors ${active ? 'bg-teal-100 text-teal-700 ring-1 ring-inset ring-teal-300' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
+    {label}
+  </button>
+);
 
 export default function QuestsPage() {
-  // // TODO: Получить реальные квесты и реализовать фильтрацию
-  // const quests = [
-  //   { id: 1, title: 'Оформить временную регистрацию', description: 'Краткое описание квеста', status: 'Активен', actionLabel: 'Подробнее' },
-  //   { id: 2, title: 'Записаться к врачу', description: 'Краткое описание квеста', status: 'На проверке', actionLabel: 'Нужна помощь' },
-  //   { id: 3, title: 'Подготовить резюме', description: 'Краткое описание квеста', status: 'Выполнен', actionLabel: 'Я выполнил' },
-  //   { id: 4, title: 'Восстановить паспорт', description: 'Краткое описание квеста', status: 'Активен', actionLabel: 'Подробнее' },
-  // ];
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get('category');
+
+  const statusFilters = ['Все', 'Активные', 'На проверке', 'Выполненные'];
+  const categoryFilters = ['Документы', 'Здоровье', 'Карьера'];
+
+  const [selectedStatus, setSelectedStatus] = useState<string>('Все');
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(() => {
+      if (initialCategory && categoryFilters.includes(initialCategory)) {
+          return initialCategory;
+      }
+      return null;
+  });
+
+  const resetFilters = () => {
+    setSelectedStatus('Все');
+    setSelectedCategory(null);
+  };
 
   return (
     <div className="container mx-auto p-4 bg-[#FFFBF5] text-gray-900">
@@ -49,15 +65,48 @@ export default function QuestsPage() {
 
       {/* Фильтры */}
       <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-2 text-gray-900">Фильтры:</h3>
+        <div className="flex justify-between items-center mb-2"> {/* Оборачиваем заголовок и кнопку сброса */}
+          <h3 className="text-lg font-semibold text-gray-900">Фильтры:</h3>
+          {/* Кнопка Сбросить все фильтры */} 
+          {(selectedStatus !== 'Все' || selectedCategory !== null) && (
+            <button 
+              onClick={resetFilters}
+              className="text-xs text-red-600 hover:text-red-800 font-medium"
+            >
+              Сбросить все фильтры
+            </button>
+          )}
+        </div>
+        {/* Фильтры по статусу */}
+        <div className="flex flex-wrap gap-2 mb-3">
+          <span className="text-sm font-medium mr-2 self-center">Статус:</span>
+          {statusFilters.map(status => (
+            <FilterButton 
+              key={status}
+              label={status}
+              active={selectedStatus === status} 
+              onClick={() => setSelectedStatus(status)} 
+            />
+          ))}
+        </div>
+        {/* Фильтры по категории */}
         <div className="flex flex-wrap gap-2">
-          <span className="text-gray-700">Фильтр 1</span> <span className="text-gray-700">Фильтр 2</span>
+           <span className="text-sm font-medium mr-2 self-center">Тип:</span>
+          {categoryFilters.map(category => (
+            <FilterButton 
+              key={category}
+              label={category}
+              active={selectedCategory === category} 
+              onClick={() => setSelectedCategory(prev => prev === category ? null : category)} 
+            />
+          ))}
         </div>
       </div>
 
       {/* Сетка квестов */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <p className="text-gray-700">Карточки квестов будут здесь...</p>
+        {/* TODO: Отображать filteredQuests */}
+        <p className="text-gray-700 col-span-full">Карточки квестов будут здесь... (Выбран статус: {selectedStatus}, Категория: {selectedCategory || 'не выбрана'})</p>
       </div>
 
     </div>
